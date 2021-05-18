@@ -1,0 +1,186 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Bhimari Nagesh.ipynb",
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "73kkpjzaDSVy",
+        "outputId": "f0238a04-d08e-4d8c-83c4-edbb40d71e1f"
+      },
+      "source": [
+        "## IMPORTING DATASET\n",
+        "from keras.datasets import mnist\n",
+        "data = mnist.load_data()\n",
+        "type(data)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "tuple"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 25
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "rD29w-QLFIGX"
+      },
+      "source": [
+        "((X_train,y_train),(X_test,y_test)) = data"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "kbjDu7K6VYAx"
+      },
+      "source": [
+        "X_train = X_train.reshape((X_train.shape[0], 28*28)),astype('float32')\n",
+        "X_test = X_test.reshape((X_test.shape[0], 28*28)),astype('float32')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hIPdZ6bnLPba"
+      },
+      "source": [
+        "# Normalizing values from 0-255 to 0-1 \n",
+        "X_train = X_train / 25"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QObbV98-6Dj2"
+      },
+      "source": [
+        "from keras.utils import np_utils\n",
+        "\n",
+        "print(y_test. shape)\n",
+        "\n",
+        "y_train = np_utils.to_categorical(y_train)\n",
+        "y_test = np_utils.to_categorical(y_test)\n",
+        "\n",
+        "num_classes = y_test.shape[1]\n",
+        "print(y_test.shape)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "bT4aC08ZLK4s"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "L8zmegQy1hFY"
+      },
+      "source": [
+        "from keras.models import sequential\n",
+        "from keras.layers import Dense"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "UWVc5Y3o3mkE"
+      },
+      "source": [
+        "model = Squential()\n",
+        "model.add(Dense(32, input_dim = 28*28, activation = 'relu'))\n",
+        "model.add(Dense(64, activation = 'relu'))\n",
+        "model.add(Dense(10, activation = 'softmax'))\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-lxjx4GV5O8U"
+      },
+      "source": [
+        "model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "quzJU8yb7CpO"
+      },
+      "source": [
+        "model.summary()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "INlsU2ZuF0v-"
+      },
+      "source": [
+        "model.fit(X_train,y_train, epochs=10,batch_size=100)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ONAP5NL0GOcO"
+      },
+      "source": [
+        "scores= model.evaluate(X_test,y_test)\n",
+        "print(scores)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
